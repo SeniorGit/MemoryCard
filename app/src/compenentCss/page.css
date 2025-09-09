@@ -6,6 +6,12 @@
     max-width: 1320px;
 }
 
+@font-face {
+    font-family: 'DragonBalls';
+    src: url(/public/saiyan_sans/Saiyan-Sans.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* mobile */
 @media (max-width:576px){
@@ -15,6 +21,13 @@
     .cardHolder{
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 
+    }
+    .title,
+    .interactive{
+        font-family: 'DragonBalls', sans-serif;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 30px;
     }
 }
 /* tablet */
@@ -26,7 +39,15 @@
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         
     }
+    .title,
+    .interactive{
+        font-family: 'DragonBalls', sans-serif;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 30px;
+    }
 }
+
 /* desktop */
 @media (min-width:1200px){
     .container{
@@ -34,6 +55,13 @@
     }
     .cardHolder{
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .title,
+    .interactive{
+        font-family: 'DragonBalls', sans-serif;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 50px;
         
     }
 }
@@ -41,7 +69,8 @@
     display: flex;
     font-size: larger;
     align-items: center;
-    justify-content: center;
+    padding: 1rem;
+    justify-content: space-between;
 }
 
 .cardHolder{
@@ -49,5 +78,10 @@
     gap: 2rem;
     padding: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    
 }
+
+.interactive{
+    display: flex;
+    gap: 20px;
+}
+

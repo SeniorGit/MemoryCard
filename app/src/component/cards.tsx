@@ -19,20 +19,28 @@ export function Cards({score, setScore}:CardProps){
     const [cards, setCard] = useState<Card[]>([]);
     const [canFlip, setCanFlip] = useState(true);
     useEffect(()=> {
-        const initialCard = ['a', 'a', 'b', 'b',
-            'c', 'c', 'd', 'd', 'e', 'e',
-        ]
-        const shuffle = [...initialCard].sort(()=> Math.random()-0.5)
-        .map((value, index)=> ({
-            value, 
-            isFlipped: false,
-            isMatched: false,
-            id: index,
-        }));
-        setCard(shuffle);
+        const fetchDragonBallChar = async ()=>{
+            try{
+                const response = await fetch('https://dragonball-api.com/api/characters');
+                const data = await response.json();
+                const characters = data.items.slice(0,5);
+                const pairedChar = [...characters, ...characters]
+                const shuffle = [...pairedChar].sort(()=> Math.random()-0.5)
+                .map((characters, index)=> ({
+                    value: characters.image, 
+                    isFlipped: false,
+                    isMatched: false,
+                    id: index,
+                }));
+                setCard(shuffle);
+            }catch(error){
+                console.error('Error Fetching data:', error);
+            }
+        };
+        fetchDragonBallChar();
     }, [])
 
-   const handleCardClick = (clickedIndex: number) => {
+    const handleCardClick = (clickedIndex: number) => {
         //checking if the card already flipped or card already matched
         if (!canFlip || cards[clickedIndex].isFlipped || cards[clickedIndex].isMatched) {
             return;
@@ -89,7 +97,7 @@ export function Cards({score, setScore}:CardProps){
                             
                         </div>
                         <div className="card-back">
-                            {card.value}
+                            <img src={card.value} alt="Dragon Ball Character"/>
                         </div>
                     </div>
                 </div>

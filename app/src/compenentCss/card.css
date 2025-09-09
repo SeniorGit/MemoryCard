@@ -37,6 +37,16 @@
 }
 
 .card-back {
-  background: lightcoral;
+ 
+  background: #fffffe;
   transform: rotateY(180deg);
+}
+
+.card-back img{
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  
 }
