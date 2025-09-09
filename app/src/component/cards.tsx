@@ -39,7 +39,8 @@ export function Cards({score, setScore}:CardProps){
         };
         fetchDragonBallChar();
     }, [])
-
+    
+    
     const handleCardClick = (clickedIndex: number) => {
         //checking if the card already flipped or card already matched
         if (!canFlip || cards[clickedIndex].isFlipped || cards[clickedIndex].isMatched) {
