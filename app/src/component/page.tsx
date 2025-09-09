@@ -3,6 +3,7 @@ import "./../compenentCss/page.css"
 import { Cards } from "./cards"
 export default function MemoryCard(){
     const [dragonball, setdragonball] = useState("")
+    const [score, setScore] = useState(0);
     useEffect(()=>{
 
     })
@@ -10,9 +11,10 @@ export default function MemoryCard(){
         <div className="container">
             <div className="header">
                 <h1>Memory Card</h1>
+                <h1>Score: {score}</h1>
             </div>
             <div>
-                <Cards/>
+                <Cards score={score} setScore={setScore}/>
             </div>
         </div>
     )
