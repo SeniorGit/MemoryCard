@@ -6,21 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import MemoryCard from "./src/component/page";
 import type { Route } from "./+types/root";
+import saiyanSans from "./assets/fonts/Saiyan-Sans.ttf?url";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
+  { rel: "preload", href: saiyanSans, as: "font", type: "font/ttf", crossOrigin: "anonymous" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -29,6 +20,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#1c2541" />
         <Meta />
         <Links />
       </head>
@@ -42,35 +34,30 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  return <Outlet />;
+}
+
+export function HydrateFallback() {
   return (
-    <>
-      <MemoryCard/>
-    </>
-  ) ;
+    <main className="fatal" role="status">
+      Preparing your game…
+    </main>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
-
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
+  const isNotFound = isRouteErrorResponse(error) && error.status === 404;
+  const stack = import.meta.env.DEV && error instanceof Error ? error.stack : undefined;
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
+    <main className="fatal">
+      <h1>{isNotFound ? "Page not found" : "Something went wrong"}</h1>
+      <p>{isNotFound ? "That page doesn't exist." : "Reload the page to start a new game."}</p>
+      <a className="button button--primary" href="/">
+        Back to the game
+      </a>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre>
           <code>{stack}</code>
         </pre>
       )}
