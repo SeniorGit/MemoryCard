@@ -1,13 +1,16 @@
+import { Game } from "~/components/Game";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Dragon Ball Memory" },
+    {
+      name: "description",
+      content: "A memory card game with Dragon Ball characters. Match every pair in as few moves as you can.",
+    },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return <Game />;
 }
